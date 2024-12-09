@@ -1,0 +1,6 @@
+<h1>Loans</h1>
+<ul>
+    {% for loan in loans %}
+        <li><a href="{% url 'loan_detail' loan.id %}">Loan {{ loan.id }} - {{ loan.status }}</a></li>
+    {% endfor %}
+</ul>

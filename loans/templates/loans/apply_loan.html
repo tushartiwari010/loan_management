@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Loan</title>
+</head>
+<body>
+    <h1>Apply for a Loan</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label for="id_loan_type">Loan type:</label>
+            {{ form.loan_type }}
+        </div>
+        <div>
+            <label for="id_principal_amount">Principal amount:</label>
+            {{ form.principal_amount }}
+        </div>
+        <div>
+            <label for="id_duration_months">Duration months:</label>
+            {{ form.duration_months }}
+        </div>
+        <div>
+            <label for="id_start_date">Start date:</label>
+            {{ form.start_date }}
+        </div>
+       
+        <button type="submit">Submit Application</button>
+    </form>
+</body>
+</html>
