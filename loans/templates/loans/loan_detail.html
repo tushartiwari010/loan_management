@@ -1,5 +1,87 @@
-<h1>Loan Details</h1>
-<p>Borrower: {{ loan.borrower.user.username }}</p>
-<p>Principal Amount: {{ loan.principal_amount }}</p>
-<p>Total Repayment: {{ loan.total_repayment }}</p>
-<p>Status: {{ loan.status }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Details</title>
+    <style>
+        /* CSS Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .loan-details {
+            margin: 20px 0;
+        }
+
+        .loan-details p {
+            font-size: 16px;
+            color: #555;
+            margin: 10px 0;
+        }
+
+        .loan-details span {
+            font-weight: bold;
+            color: #222;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Loan Details</h1>
+
+        <div class="loan-details">
+            <p><span>Loan Type:</span> {{ loan.loan_type }}</p>
+            <p><span>Principal Amount:</span> {{ loan.principal_amount }}</p>
+            <p><span>Interest Rate:</span> {{ loan.interest_rate }}%</p>
+            <p><span>Duration:</span> {{ loan.duration_months }} months</p>
+            <p><span>Total Amount Payable:</span> {{ loan.total_repayment}}</p>
+            <p><span>Status:</span> {{ loan.status }}</p>
+            <p><span>Start Date:</span> {{ loan.start_date }}</p>
+            <h3>Repayment Details</h3>
+            <p><strong>Total Repayment:</strong> {{ loan.total_repayment }}</p>
+            <p><strong>Amount Repaid:</strong> {{ loan.amount_repaid }}</p>
+            <p><strong>Remaining Balance:</strong> {{ loan.remaining_balance }}</p>
+
+            <a href="{% url 'make_repayment' loan.id %}">Make a Repayment</a>
+
+        </div>
+
+        <a href="{% url 'loan_list' %}" class="btn">Back to Loans</a>
+    </div>
+</body>
+</html>

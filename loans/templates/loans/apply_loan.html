@@ -4,29 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apply for Loan</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <h1>Apply for a Loan</h1>
+
     <form method="POST">
         {% csrf_token %}
-        <div>
-            <label for="id_loan_type">Loan type:</label>
+
+        <div class="form-group">
+            <label for="{{ form.loan_type.id_for_label }}">Loan type:</label>
             {{ form.loan_type }}
+            {% if form.loan_type.errors %}
+                <div class="error">{{ form.loan_type.errors.0 }}</div>
+            {% endif %}
         </div>
-        <div>
-            <label for="id_principal_amount">Principal amount:</label>
+
+        <div class="form-group">
+            <label for="{{ form.interest_rate.id_for_label }}">Interest rate:</label>
+            {{ form.interest_rate }}
+            {% if form.interest_rate.errors %}
+                <div class="error">{{ form.interest_rate.errors.0 }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.principal_amount.id_for_label }}">Principal amount:</label>
             {{ form.principal_amount }}
+            {% if form.principal_amount.errors %}
+                <div class="error">{{ form.principal_amount.errors.0 }}</div>
+            {% endif %}
         </div>
-        <div>
-            <label for="id_duration_months">Duration months:</label>
+
+        <div class="form-group">
+            <label for="{{ form.duration_months.id_for_label }}">Duration months:</label>
             {{ form.duration_months }}
+            {% if form.duration_months.errors %}
+                <div class="error">{{ form.duration_months.errors.0 }}</div>
+            {% endif %}
         </div>
-        <div>
-            <label for="id_start_date">Start date:</label>
+
+        <div class="form-group">
+            <label for="{{ form.start_date.id_for_label }}">Start date:</label>
             {{ form.start_date }}
+            {% if form.start_date.errors %}
+                <div class="error">{{ form.start_date.errors.0 }}</div>
+            {% endif %}
         </div>
-       
+
         <button type="submit">Submit Application</button>
     </form>
+
+    <script>
+        $(document).ready(function() {
+            // On loan type change, fetch the interest rate
+            $('#id_loan_type').on('change', function() {
+                const loanTypeId = $(this).val(); // Get selected loan type
+                if (loanTypeId) {
+                    // Make an AJAX request to get the interest rate
+                    $.ajax({
+                        url: `/loans/api/get-interest-rate/${loanTypeId}/`, // URL for the API
+                        method: 'GET',
+                        success: function(data) {
+                            if (data.interest_rate) {
+                                $('#id_interest_rate').val(data.interest_rate); // Set interest rate
+                            } else {
+                                $('#id_interest_rate').val(''); // Clear the field if no rate found
+                            }
+                        },
+                        error: function() {
+                            alert('Failed to fetch interest rate. Please try again.');
+                            $('#id_interest_rate').val('');
+                        }
+                    });
+                } else {
+                    $('#id_interest_rate').val(''); // Clear field if no loan type is selected
+                }
+            });
+        });
+    </script>
 </body>
 </html>

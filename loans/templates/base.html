@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Loan Management System{% endblock %}</title>
     <style>
-        /* Basic Reset */
+        
         * {
             margin: 0;
             padding: 0;
@@ -13,47 +13,107 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
         }
 
         nav {
-            background-color: #007bff;
+            background-color: #0056b3;
             color: #fff;
-            padding: 10px 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        nav a {
+        nav a, nav button {
             color: #fff;
             text-decoration: none;
-            margin-right: 15px;
-            font-weight: bold;
+            margin: 0 10px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
-        nav a:hover {
+        nav a:hover, nav button:hover {
             text-decoration: underline;
         }
 
-        main {
-            max-width: 800px;
-            margin: 20px auto;
+        nav button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .loan-types {
+            margin-top: 20px;
             padding: 20px;
             background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .loan-types h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            display: inline-block;
+        }
+
+        .loan-types ul {
+            list-style-type: none;
+            margin: 10px 0;
+            padding: 0;
+        }
+
+        .loan-types ul li {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         footer {
             text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #007bff;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #0056b3;
             color: #fff;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav a, nav button {
+                margin: 10px 0;
+            }
+
+            main {
+                margin: 20px;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -69,7 +129,6 @@
                     {% csrf_token %}
                     <button type="submit">Logout</button>
                 </form>
-            
             {% else %}
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'register' %}">Register</a>
@@ -78,10 +137,20 @@
     </nav>
     <main>
         {% block content %}
+        <section class="loan-types">
+            <h2>Types of Loans We Provide</h2>
+            <ul>
+                <li>Home Loan - Affordable housing finance.</li>
+                <li>Car Loan - Financing for your dream vehicle.</li>
+                <li>Personal Loan - Flexible loans for your needs.</li>
+                <li>Education Loan - Invest in your future.</li>
+                <li>Business Loan - Grow your business with us.</li>
+            </ul>
+        </section>
         {% endblock %}
     </main>
     <footer>
-        <p>&copy; 2024 Loan Management System</p>
+        <p>&copy; 2024 Loan Management System. All rights reserved.</p>
     </footer>
 </body>
 </html>

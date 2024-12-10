@@ -24,4 +24,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),  # Authentication URLs
     path('', TemplateView.as_view(template_name='base.html'), name='home'),
     path('loans/', include('loans.urls')),
+    path('api/', include('loans.urls')),
+
 ]

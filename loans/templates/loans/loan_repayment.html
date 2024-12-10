@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Repayment</title>
+</head>
+<body>
+    <h1>Make Repayment for Loan #{{ loan.id }}</h1>
+    <p><strong>Total Repayment:</strong> {{ loan.total_repayment }}</p>
+    <p><strong>Amount Repaid:</strong> {{ loan.amount_repaid }}</p>
+    <p><strong>Remaining Balance:</strong> {{ loan.remaining_balance }}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Repayment</button>
+    </form>
+</body>
+</html>
